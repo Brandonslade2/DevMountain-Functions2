@@ -5,17 +5,24 @@
   Invoke the callback, passing in the product of the two numbers multiplied as the argument. 
 */
 
-// CODE HERE
+
+
+const multiply = (num1, num2, cb) => cb(num1 * num2)
+
 
 
 // UNCOMMENT THE FUNCTION CALL BELOW
 // RUN THIS FILE WITH NODE
 // CHECK YOUR ANSWER
 
-// multiply(4, 3, answer => {
-//   console.log('The answer is ' + answer) //should console.log 12
-// })
+multiply(4, 3, answer => {
+   console.log('The answer is ' + answer) //should console.log 12
+ })
 
+/*im sorry but the explanation on callbacks in the lecture videos is absolute garbage. My notes:
+a callback function is a function within a function (thats more global) that requires the function's (more globals) other parameters.
+asseen from the example above, the callback is invoked as what you want to do with the other parameters.
+*/
 
 
 ////////// PROBLEMS 2 - 6 //////////
@@ -35,18 +42,18 @@ var names = ['Tyler', 'Cahlan', 'Ryan', 'Colt', 'Tyler', 'Blaine', 'Cahlan']
   Then invoke the callback function, passing in the first element in the array as it's argument.
 */
 
-// CODE HERE 
+const first = (array, cb1) => cb1(array[0])
 
 
 // UNCOMMENT THE FUNCTION CALL BELOW
 // RUN THIS FILE WITH NODE
 // CHECK YOUR ANSWER
 
-// first(names, firstName => {
-//   console.log('The first name in names is ' + firstName)
-// })
+first(names, firstName => {
+console.log('The first name in names is ' + firstName)
+ })
 
-
+///oh my god. literally all someone had to do was tell me about the parenthesis in the END ^^^ that makes so much sense now.
 
 ////////// PROBLEM 3 //////////
 
@@ -55,16 +62,16 @@ var names = ['Tyler', 'Cahlan', 'Ryan', 'Colt', 'Tyler', 'Blaine', 'Cahlan']
   Then invoke the callback, passing in the last element in the array as the argument.
 */
 
-// CODE HERE
+const last = (array, cb1) => cb1(array[array.length -1])
 
 
 // UNCOMMENT THE FUNCTION CALL BELOW
 // RUN THIS FILE WITH NODE
 // CHECK YOUR ANSWER
 
-// last(names, lastName => {
-//   console.log('The last name in names is ' + lastName)
-// })
+last(names, lastName => {
+   console.log('The last name in names is ' + lastName)
+ })
 
 
 
@@ -77,20 +84,26 @@ var names = ['Tyler', 'Cahlan', 'Ryan', 'Colt', 'Tyler', 'Blaine', 'Cahlan']
   If the name does not exist, invoke the callback with false as the argument.
 */
 
-// CODE HERE 
+const contains = (array4, name4, cb4) => {
+  if (array4.includes(name4) === true) {
+    cb4(true) //then invoke the
+  }else{
+    cb4(false)
+  }
+}
 
 
 // UNCOMMENT THE FUNCTION CALL BELOW
 // RUN THIS FILE WITH NODE
 // CHECK YOUR ANSWER
 
-// contains(names, 'Colt', result => {
-//   if(result === true){
-//     console.log('Colt is in the array')
-//   } else {
-//     console.log('Colt is not in the array')
-//   }
-// })
+contains(names, 'Colt', result => {
+   if(result === true){
+     console.log('Colt is in the array')
+   } else {
+     console.log('Colt is not in the array')
+   }
+ })
 
 
 
@@ -102,7 +115,20 @@ var names = ['Tyler', 'Cahlan', 'Ryan', 'Colt', 'Tyler', 'Blaine', 'Cahlan']
   Hint: you can use a nested for loop to do this.
 */
 
-// CODE HERE
+const uniq = (array5, cb5) => {
+  for (i = 0; i < array5.length; i++) {
+    for (o = 0; o < array5.length; o++) {
+      if (i !== o) {
+        if (array5[i] == array5[o]) {
+          array5.splice(o, 1)
+        }
+      }
+    }
+  }
+  cb5(array5) //something still needs to be in here because I still need to use what was given to cb5 like i see below.
+}
+
+//why tf does the solution have x--. it was not needed for me.
 
 /*
   Invoke the uniq function, passing in the names array from above and a callback function.
@@ -111,7 +137,9 @@ var names = ['Tyler', 'Cahlan', 'Ryan', 'Colt', 'Tyler', 'Blaine', 'Cahlan']
   'The new names array with all the duplicate items removed is [UNIQARRPARAM].'
 */
 
-// CODE HERE
+uniq(names, uniqArr =>
+  console.log('The new names array with all the duplicate items removed is', uniqArr)
+)
 
 
 
@@ -122,8 +150,7 @@ var names = ['Tyler', 'Cahlan', 'Ryan', 'Colt', 'Tyler', 'Blaine', 'Cahlan']
   For each name in the array, invoke the callback and pass in the name and the name's index as arguments.
 */
 
-// CODE HERE 
-
+const each = (arr, cb) => arr.forEach((el, i) => cb(el, i))
 
 /*
   Invoke the each function, passing in the names array and a callback function.
@@ -132,7 +159,9 @@ var names = ['Tyler', 'Cahlan', 'Ryan', 'Colt', 'Tyler', 'Blaine', 'Cahlan']
   'The item at index [INDEXPARAM] is [ITEMPARAM].'
 */
 
-// CODE HERE
+each(names, (item, index) =>
+  console.log(`The item at index ${index} is ${item}.`)
+)
 
 
 ////////// PROBLEM 7 //////////
@@ -165,16 +194,22 @@ var users = [
 ]
 // Do not edit the code above.
 
-// CODE HERE 
+const getUserById = (arr, id, cb) => {
+  for (i = 0; i < arr.length ; i++){
+    if (arr[i].id === id) {
+      return cb(arr[i])
+    }
+  }
+}
 
 
 // UNCOMMENT THE FUNCTION CALL BELOW
 // RUN THIS FILE WITH NODE
 // CHECK YOUR ANSWER
 
-// getUserById(users, '16t', user => {
-//   console.log('The user with the id 16t has the email of ' + user.email + ' the name of ' + user.name + ' and the address of ' + user.address) 
-// })
+ getUserById(users, '16t', user => {
+   console.log('The user with the id 16t has the email of ' + user.email + ' the name of ' + user.name + ' and the address of ' + user.address) 
+ })
 
 ////////// CHALLENGE //////////
 
@@ -192,7 +227,7 @@ var users = [
   the two parameters together and return the sum.
 */
 
-// CODE HERE
+const addingFactory = num1 => num2 => num1 + num2
 
 /*
   Now that you have addingFactory, you can create other
@@ -206,7 +241,9 @@ var users = [
   10 as an arguemnt.
 */
 
-// CODE HERE
+var addTen = addingFactory(10)
+
+console.log(addingFactory(10))
 
 /*
   Now the inner function is stored in the addTen variable! 
@@ -218,7 +255,11 @@ var users = [
   to see the different outputs.
 */
 
-// CODE HERE
+console.log(addTen(10))
+console.log(addTen(11))
+
+
+//learned here that its probably best to erase my memory with traditional functions and look at this as a fresh start.
 
 /*
   Let's make another function from the addingFactory. 
@@ -228,7 +269,9 @@ var users = [
   you chose. 
 
   Once you create that, you can invoke the function
-  to add any number to your favorite number!
+  to add any number to your favorite number!                  THE WORDING ON THIS AGAIN!?
 */
 
-// CODE HERE
+const addFourteen = addingFactory(14)
+
+console.log(addFourteen(14))
